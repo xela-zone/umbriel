@@ -238,6 +238,11 @@ namespace umbriel {
     std::optional<std::string> screenEffect; // "off" disables the default
     // Render bit depth for SDR output: 8 (default) or 10 for 10-bit SDR.
     int bitDepth = 8;
+    // HDR static mastering metadata (cd/m²)
+    std::optional<double> maxLuminance;
+    std::optional<double> minLuminance;
+    std::optional<double> maxCll;
+    std::optional<double> maxFall;
     // Explicit workspace inventory. A count creates anonymous positional
     // members, while a string list creates named members. Omitted is dynamic.
     using WorkspaceInventory = std::variant<size_t, std::vector<std::string>>;

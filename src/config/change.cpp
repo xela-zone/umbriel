@@ -50,7 +50,11 @@ namespace umbriel {
           && lhs.vrr == rhs.vrr
           && lhs.hdr == rhs.hdr
           && lhs.sdrWhite == rhs.sdrWhite
-          && lhs.bitDepth == rhs.bitDepth;
+          && lhs.bitDepth == rhs.bitDepth
+          && lhs.maxLuminance == rhs.maxLuminance
+          && lhs.minLuminance == rhs.minLuminance
+          && lhs.maxCll == rhs.maxCll
+          && lhs.maxFall == rhs.maxFall;
     }
 
     bool sameOutputTearingPolicy(const OutputRule* before, const OutputRule* after) {

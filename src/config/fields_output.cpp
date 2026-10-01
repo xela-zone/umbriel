@@ -137,6 +137,10 @@ namespace umbriel {
           registry::choice("vrr", &O::vrr, vrrModes()),
           registry::choice("hdr", &O::hdr, hdrModes()),
           registry::real("sdr_white", 80.0, 1000.0, &O::sdrWhite),
+          registry::real("max_luminance", 10.0, 10000.0, &O::maxLuminance),
+          registry::real("min_luminance", 0.0001, 10.0, &O::minLuminance),
+          registry::real("max_cll", 10.0, 10000.0, &O::maxCll),
+          registry::real("max_fall", 10.0, 10000.0, &O::maxFall),
           custom<O>(
               "bit_depth", KeyDescription("int").withRange(8, 10),
               [](const toml::node& node, const std::string& path, O& target, registry::ReadContext&) {

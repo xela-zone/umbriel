@@ -13,6 +13,7 @@ pkgs.mkShell {
   ];
 
   nativeBuildInputs = with pkgs; [
+    ccache
     just
     lefthook
     meson
@@ -35,6 +36,8 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
+    export CC="ccache gcc"
+    export CXX="ccache g++"
     echo " Umbriel dev-shell | 'just --list' to see available tasks"
   '';
 }

@@ -436,14 +436,18 @@ namespace umbriel {
       } else if (!m_server->renderer()->features.output_color_transform) {
         earlyHdrFail = "renderer lacks FP16 output transform";
       } else {
-        hdrDescription = {
-            .primaries = WLR_COLOR_NAMED_PRIMARIES_BT2020,
-            .transfer_function = WLR_COLOR_TRANSFER_FUNCTION_ST2084_PQ,
-            .mastering_display_primaries = {},
-            .mastering_luminance = {},
-            .max_cll = 0,
-            .max_fall = 0,
-        };
+        const double minLum = rule != nullptr && rule->minLuminance ? *rule->minLuminance : 0.005;
+        const double maxLum = rule != nullptr && rule->maxLuminance ? *rule->maxLuminance : 0.0;
+        const double maxCll = rule != nullptr && rule->maxCll ? *rule->maxCll : maxLum;
+        const double maxFall = rule != nullptr && rule->maxFall ? *rule->maxFall : 0.0;
+
+        hdrDescription.primaries = WLR_COLOR_NAMED_PRIMARIES_BT2020;
+        hdrDescription.transfer_function = WLR_COLOR_TRANSFER_FUNCTION_ST2084_PQ;
+        hdrDescription.mastering_display_primaries = {};
+        hdrDescription.mastering_luminance.min = minLum;
+        hdrDescription.mastering_luminance.max = maxLum;
+        hdrDescription.max_cll = maxCll;
+        hdrDescription.max_fall = maxFall;
 
         if (!wlr_output_state_set_image_description(&state, &hdrDescription)) {
           earlyHdrFail = "failed to stage HDR image description";
